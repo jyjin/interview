@@ -1,0 +1,16 @@
+{
+  "name": "unittest-mocha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "test-report": "mocha --reporter spec"
+  },
+  "author": "jyjin",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2"
+  }
+}

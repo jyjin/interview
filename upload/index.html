@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="file" name="" id="file" multiple>
+    <button id='btn'>提交</button>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        $(function () {
+            $('#file').on('change', function (e) {
+                console.log($(e.target).get(0).files)
+            })
+            $('#btn').on('click', function () {
+                var formData = new FormData()
+                formData.append('file', $('#file').get(0).files[0])
+                formData.append('file1', $('#file').get(0).files[1])
+                fetch('http://localhost:80/good/add', {
+                    method: 'post',
+                    body: formData,
+                }).then(function (res) {
+                    return res.json();
+                }).then(function (json) {
+                    console.log(json)
+                })
+            })
+        })
+    </script>
+</body>
+
+</html>

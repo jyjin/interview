@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>红路灯</title>
+    <style>
+        .traffic-wrap{
+            display: flex;
+            align-items: flex-start;
+            margin: 20px auto;
+            width: 800px;
+            height: 600px;
+            justify-content: center;
+            border-bottom: 5px solid;
+        }
+
+        .traffic-light {
+            padding: 10px;
+            width: 100px;
+            border: 5px solid;
+            border-radius: 20px;
+            background: black;
+        }
+
+        .traffic-light div {
+            width: 90px;
+            height: 90px;
+            margin: 10px 0;
+            border: 5px solid;
+            border-radius: 100%;
+            line-height: 100px;
+            text-align: center;
+            font-size: 50px;
+        }
+
+        .red-light {
+            color: #5f4444;
+            border-color: red;
+            background: red;
+            opacity: 0.5;
+        }
+
+        .yellow-light {
+            color: orange;
+            border-color: orange;
+            background: yellow;
+            opacity: 0.5;
+        }
+
+        .green-light {
+            color: lightgreen;
+            border-color: lightgreen;
+            background: green;
+            opacity: 0.5;
+        }
+
+        .hoz-line {
+            width: 120px;
+            height: 20px;
+            background: black;
+            margin: 175px 0;
+            border-radius: 0 5px 0 0;
+        }
+        .vet-line {
+            width: 20px;
+            height: 410px;
+            background: black;
+            align-self: flex-end;
+            margin: 0 0 0 -20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="traffic-wrap">
+        <div class="traffic-light">
+            <div class="red-light"></div>
+            <div class="yellow-light"></div>
+            <div class="green-light"></div>
+        </div>
+        <div class="hoz-line"></div>
+        <div class="vet-line"></div>
+    </div>
+    <script>
+
+        const setLight = (color, time) => {
+            var p = new Promise(resolve => {
+                timeTick(color, time)
+                setTimeout(() => {
+                    resolve({ color, time })
+                }, time * 1000)
+
+            })
+            return p
+        }
+
+
+        const timeTick = (color, time) => {
+            var t = time
+            var tc = setInterval(() => {
+                if (t == 0) {
+                    clearInterval(tc)
+                    return
+                }
+                console.log(`Traffic light: ${color} == ${t}s`)
+                setStyle(color, t--)
+            }, 1000)
+        }
+
+        const setStyle = (color, time) => {
+            time = time + ''
+            if (time / 10 < 1) {
+                time = '0' + time
+            }
+
+            var red = document.getElementsByClassName('red-light')[0]
+            var yel = document.getElementsByClassName('yellow-light')[0]
+            var grn = document.getElementsByClassName('green-light')[0]
+
+            if (color == 'red') {
+
+                red.style.opacity = 1
+                yel.style.opacity = 0.5
+                grn.style.opacity = 0.5
+
+                red.innerText = time
+                yel.innerText = ''
+                grn.innerText = ''
+
+            } else if (color == 'yellow') {
+
+                red.style.opacity = 0.5
+                yel.style.opacity = 1
+                grn.style.opacity = 0.5
+
+                red.innerText = ''
+                yel.innerText = time
+                grn.innerText = ''
+
+            } else {
+
+                red.style.opacity = 0.5
+                yel.style.opacity = 0.5
+                grn.style.opacity = 1
+
+                red.innerText = ''
+                yel.innerText = ''
+                grn.innerText = time
+            }
+        }
+
+
+        const TrafficLight = () => {
+            setLight('red', 10).then(v => {
+                return setLight('yellow', 3)
+            }).then(v => {
+                return setLight('green', 10)
+            }).then(v => {
+                TrafficLight()
+            })
+        }
+
+        TrafficLight()
+
+    </script>
+</body>
+
+</html>

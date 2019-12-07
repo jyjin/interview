@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <h1>你好</h1>
+    <!-- 盒子 -->
+    <div>测试我们的样子</div>
+    <div>测试我们的样子</div>
+    <div>测试我们的样子</div>
+    <div>测试我们的样子</div>
+  </div>
+
+  匹配 //注释
+  (\/\/.*[\u4e00-\u9fa5]).*   
+
+  匹配 /*注释不换行*/注释
+  (/*.*[\u4e00-\u9fa5]).*\*/
+
+  匹配 /**
+       * 换行注释
+       */
+  (/*.*\n.*.*\n.*[\u4e00-\u9fa5]).*\n.*\*/
+
+  匹配中文
+  [\u4e00-\u9fa5].*[\u4e00-\u9fa5]
+
+  <script>
+    /**
+     * aaa方法
+     * 功能
+     */
+    function aaa() {
+      //弹出
+      alert('我的一个程序')
+    }
+    /*方法调用*/
+    aaa()
+    aaa()
+    aaa()
+    aaa()
+    aaa()
+    aaa()
+  </script>
+</body>
+
+</html>
